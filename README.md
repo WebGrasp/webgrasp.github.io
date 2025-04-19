@@ -1,5 +1,3 @@
-# $\mathcal{D(R,O)}$ Grasp Website
+# Anonymous Supplementary Website  
 
-[https://nus-lins-lab.github.io/drograspweb/](https://nus-lins-lab.github.io/drograspweb/)
-
-This website is designed based on [Nerfies](https://github.com/nerfies/nerfies.github.io).
+The website template is based on [https://nus-lins-lab.github.io/drograspweb/](https://nus-lins-lab.github.io/drograspweb/) which itself is designed based on [Nerfies](https://github.com/nerfies/nerfies.github.io).
