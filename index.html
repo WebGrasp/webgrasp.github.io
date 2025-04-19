@@ -69,7 +69,7 @@
     </section>
 
     <!-- Intro Video -->
-    <section class="hero teaser">
+<!--     <section class="hero teaser">
       <div class="column has-text-centered", style="font-size: 24px;">
         $\mathcal{D(R,O)}$ $=$ <strong>$\mathcal{D}$</strong>istances$($<strong>$\mathcal{R}$</strong>obot, <strong>$\mathcal{O}$</strong>bject$)$
       </div>
@@ -80,7 +80,7 @@
           </video>
         </div>
       </div>
-    </section>
+    </section> -->
     <!--/ Intro Video -->
 
     <section class="section">
@@ -91,21 +91,11 @@
             <h2 class="title is-3">Abstract</h2>
             <div class="content has-text-justified">
               <p>
-                Dexterous grasping is a fundamental yet challenging skill in robotic manipulation, 
-                requiring precise interaction between robotic hands and objects. In this paper, we 
-                present $\mathcal{D(R,O)}$ Grasp, a novel framework that models the interaction 
-                between the robotic hand in its grasping pose and the object, enabling broad 
-                generalization across various robot hands and object geometries. Our model takes 
-                the robot hand’s description and object point cloud as inputs and efficiently 
-                predicts kinematically valid and stable grasps, demonstrating strong adapt ability 
-                to diverse robot embodiments and object geometries. Extensive experiments conducted 
-                in both simulated and real world environments validate the effectiveness of our 
-                approach, with significant improvements in success rate, grasp diversity, and 
-                inference speed across multiple robotic hands. Our method achieves an average 
-                success rate of 87.53% in simulation in less than one second, tested on three 
-                different dexterous robotic hands, and also performs successfully in real-world 
-                experiments using LeapHand. $\mathcal{D(R,O)}$ Grasp provides a robust solution for 
-                dexterous grasping in complex and varied environments.
+          Dexterous and functionally valid grasping is essential for enabling multi-finger robotic hands to manipulate objects effectively. For instance, fingers must be positioned on the trigger of a power drill to operate it. 
+          However, most prior work either focuses solely on power grasping, which simply involves holding an object still, or relies on costly human-collected demonstrations to teach robots how to grasp each object functionally.
+          In contrast, we propose extracting human grasping information from internet images which depict natural and functional object interactions, thereby bypassing the need for curated human datasets.
+          Using the existing 3D reconstruction from RGB images, we reconstruct hand-object interaction meshes, retarget them to a Shadow Hand, and show that even low-quality reconstructed interaction from cheap web data can be used to train a functional grasping model.
+          To further enlarge the quantity of dataset, we utilize the initially-trained grasping policy with web data in IsaacGym to generate physically feasible grasps while preserving functionality. We trained the model on 10 object categories, including objects like syringes, pens, spray bottles, and tongs, which are not represented in existing datasets. Evaluation results in Isaac Gym show a 20% improvement in grasping success rates on unseen objects, as well as significantly higher functionality ratings from human evaluators. 
               </p>
             </div>
           </div>
