@@ -144,28 +144,14 @@
         </div>
 
         <div class="columns is-centered has-text-centered">
-          <!-- Model Viewer 1 for Barrett -->
-          <div class="column is-one-quarter" style="display: flex; flex-direction: column; align-items: center;">
-            <model-viewer
-              id="modelViewer1"
-              src="static/data/3dmodel/Barrett/contactdb+apple/0.glb"
-              alt="Barrett Grasp"
-              ar
-              camera-controls
-              auto-rotate
-              auto-rotate-delay="1000"
-              interaction-prompt-threshold="2000"
-              style="width: 200px; height: 200px; border: 3px solid #66c0ff; border-radius: 15px;">
-            </model-viewer>
-            <p style="font-size: 20px; font-weight: bold;">Barrett</p>
-          </div>
+
     
-          <!-- Model Viewer 2 for Allegro -->
+          <!-- Model Viewer for Web2Grasp -->
           <div class="column is-one-quarter" style="display: flex; flex-direction: column; align-items: center;">
             <model-viewer
               id="modelViewer2"
-              src="static/data/3dmodel/Allegro/contactdb+apple/0.glb"
-              alt="Allegro Grasp"
+              src="static/web2grasp_data/hammer/0.glb"
+              alt="Web2Grasp"
               ar
               camera-controls
               auto-rotate
@@ -176,21 +162,7 @@
             <p style="font-size: 20px; font-weight: bold;">Web2Grasp</p>
           </div>
     
-          <!-- Model Viewer 3 for ShadowHand -->
-          <div class="column is-one-quarter" style="display: flex; flex-direction: column; align-items: center;">
-            <model-viewer
-              id="modelViewer3"
-              src="static/data/3dmodel/ShadowHand/contactdb+apple/0.glb"
-              alt="ShadowHand Grasp"
-              ar
-              camera-controls
-              auto-rotate
-              auto-rotate-delay="1000"
-              interaction-prompt-threshold="2000"
-              style="width: 200px; height: 200px; border: 3px solid #66c0ff; border-radius: 15px;">
-            </model-viewer>
-            <p style="font-size: 20px; font-weight: bold;">ShadowHand</p>
-          </div>
+
     
           <!-- Controls for Object and Grasp ID -->
           <div class="column is-one-quarter">
@@ -198,16 +170,15 @@
             <div class="dropdown-container" style="text-align: center; margin-top: 10px; margin-bottom: 20px;">
               <label for="objectName" style="font-size: 20px; font-weight: bold;">Object Name</label>
               <select id="objectName" class="custom-select" style="width: 200px; margin-top: 10px;">
-                <option value="contactdb+apple" style="font-size: 14px;">contactdb+apple</option>
-                <option value="contactdb+camera" style="font-size: 14px;">contactdb+camera</option>
-                <option value="contactdb+cylinder_medium" style="font-size: 14px;">contactdb+cylinder_medium</option>
-                <option value="contactdb+rubber_duck" style="font-size: 14px;">contactdb+rubber_duck</option>
-                <option value="contactdb+door_knob" style="font-size: 14px;">contactdb+door_knob</option>
-                <option value="contactdb+water_bottle" style="font-size: 14px;">contactdb+water_bottle</option>
-                <option value="ycb+baseball" style="font-size: 14px;">ycb+baseball</option>
-                <option value="ycb+pear" style="font-size: 14px;">ycb+pear</option>
-                <option value="ycb+potted_meat_can" style="font-size: 14px;">ycb+potted_meat_can</option>
-                <option value="ycb+tomato_soup_can" style="font-size: 14px;">ycb+tomato_soup_can</option>
+                <option value="hammer" style="font-size: 14px;">hammer</option>
+                <option value="hand_soap" style="font-size: 14px;">hand_soap</option>
+                <option value="mug" style="font-size: 14px;">mug</option>
+                <option value="pen" style="font-size: 14px;">pen</option>
+                <option value="power_drill" style="font-size: 14px;">power_drill</option>
+                <option value="rope" style="font-size: 14px;">rope</option>
+                <option value="spray" style="font-size: 14px;">spray</option>
+                <option value="tong" style="font-size: 14px;">tong</option>
+                <option value="whisk" style="font-size: 14px;">whisk</option>
               </select>
             </div>
 
@@ -241,9 +212,7 @@
     </section>
 
     <script>
-      const modelViewer1 = document.getElementById('modelViewer1');
       const modelViewer2 = document.getElementById('modelViewer2');
-      const modelViewer3 = document.getElementById('modelViewer3');
       const objectNameSelect = document.getElementById('objectName');
       const graspIDSlider = document.getElementById('graspID');
       const graspIDLabel = document.getElementById('graspIDLabel');
@@ -256,9 +225,7 @@
 
         graspIDLabel.textContent = selectedGraspID;
 
-        modelViewer1.src = `static/data/3dmodel/Barrett/${selectedObject}/${selectedGraspID}.glb`;
-        modelViewer2.src = `static/data/3dmodel/Allegro/${selectedObject}/${selectedGraspID}.glb`;
-        modelViewer3.src = `static/data/3dmodel/ShadowHand/${selectedObject}/${selectedGraspID}.glb`;
+        modelViewer2.src = `static/web2grasp_data/${selectedObject}/${selectedGraspID}.glb`;
       }
       objectNameSelect.addEventListener('change', updateModel);
       graspIDSlider.addEventListener('input', updateModel);
