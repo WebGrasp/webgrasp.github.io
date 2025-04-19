@@ -112,10 +112,8 @@
             <h2 class="title is-3">Pipeline Overview</h2>
             <div class="content has-text-justified">
               <figure>
-                <img src="./static/image/pipeline.png" alt="Overview of D(R,O) Grasp framework">
-                <figcaption style="font-style: normal; font-size: 0.95em;">Overview of $\mathcal{D(R,O)}$ Grasp: We first pretrain the robot encoder with the proposed configuration-invariant
-                  pretraining method. Then, we predict the $\mathcal{D(R,O)}$ representation between the robot and object point cloud. Finally, we
-                  extract joint values from the $\mathcal{D(R,O)}$ representation.</figcaption>
+                <img src="./static/image/pipeline.png" alt="Overview of the Web2Grasp framework">
+                <figcaption style="font-style: normal; font-size: 0.95em;">We design a framework for autonomously obtaining robot grasp data by reconstructing Hand-Object meshes from Web images, re-targeting the humand hand pose to a robot hand pose, and aligning the object mesh with a pseudo ground-truth object mesh obtained via text-to-3D approaches. We demonstrate that the resulting dataset obtained via lots of web images and not requiring any robot-specific teleoperation enables training an imitation learning policy with strong grasping performance both in simulation and in the rela-world. </figcaption>
               </figure>
             </div>
           </div>
