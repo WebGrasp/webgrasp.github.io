@@ -69,7 +69,7 @@
     </section>
 
     <!-- Intro Video -->
-<!--     <section class="hero teaser">
+    <section class="hero teaser">
       <div class="column has-text-centered", style="font-size: 24px;">
         $\mathcal{D(R,O)}$ $=$ <strong>$\mathcal{D}$</strong>istances$($<strong>$\mathcal{R}$</strong>obot, <strong>$\mathcal{O}$</strong>bject$)$
       </div>
@@ -80,7 +80,7 @@
           </video>
         </div>
       </div>
-    </section> -->
+    </section>
     <!--/ Intro Video -->
 
     <section class="section">
@@ -91,11 +91,21 @@
             <h2 class="title is-3">Abstract</h2>
             <div class="content has-text-justified">
               <p>
-          Dexterous and functionally valid grasping is essential for enabling multi-finger robotic hands to manipulate objects effectively. For instance, fingers must be positioned on the trigger of a power drill to operate it. 
-          However, most prior work either focuses solely on power grasping, which simply involves holding an object still, or relies on costly human-collected demonstrations to teach robots how to grasp each object functionally.
-          In contrast, we propose extracting human grasping information from internet images which depict natural and functional object interactions, thereby bypassing the need for curated human datasets.
-          Using the existing 3D reconstruction from RGB images, we reconstruct hand-object interaction meshes, retarget them to a Shadow Hand, and show that even low-quality reconstructed interaction from cheap web data can be used to train a functional grasping model.
-          To further enlarge the quantity of dataset, we utilize the initially-trained grasping policy with web data in IsaacGym to generate physically feasible grasps while preserving functionality. We trained the model on 10 object categories, including objects like syringes, pens, spray bottles, and tongs, which are not represented in existing datasets. Evaluation results in Isaac Gym show a 20% improvement in grasping success rates on unseen objects, as well as significantly higher functionality ratings from human evaluators. 
+                Dexterous grasping is a fundamental yet challenging skill in robotic manipulation, 
+                requiring precise interaction between robotic hands and objects. In this paper, we 
+                present $\mathcal{D(R,O)}$ Grasp, a novel framework that models the interaction 
+                between the robotic hand in its grasping pose and the object, enabling broad 
+                generalization across various robot hands and object geometries. Our model takes 
+                the robot hand’s description and object point cloud as inputs and efficiently 
+                predicts kinematically valid and stable grasps, demonstrating strong adapt ability 
+                to diverse robot embodiments and object geometries. Extensive experiments conducted 
+                in both simulated and real world environments validate the effectiveness of our 
+                approach, with significant improvements in success rate, grasp diversity, and 
+                inference speed across multiple robotic hands. Our method achieves an average 
+                success rate of 87.53% in simulation in less than one second, tested on three 
+                different dexterous robotic hands, and also performs successfully in real-world 
+                experiments using LeapHand. $\mathcal{D(R,O)}$ Grasp provides a robust solution for 
+                dexterous grasping in complex and varied environments.
               </p>
             </div>
           </div>
@@ -112,8 +122,10 @@
             <h2 class="title is-3">Pipeline Overview</h2>
             <div class="content has-text-justified">
               <figure>
-                <img src="./static/image/pipeline.png" alt="Overview of the Web2Grasp framework">
-                <figcaption style="font-style: normal; font-size: 0.95em;">We design a framework for autonomously obtaining robot grasp data by reconstructing Hand-Object meshes from Web images, re-targeting the humand hand pose to a robot hand pose, and aligning the object mesh with a pseudo ground-truth object mesh obtained via text-to-3D approaches. We demonstrate that the resulting dataset obtained via lots of web images and not requiring any robot-specific teleoperation enables training an imitation learning policy with strong grasping performance both in simulation and in the rela-world. </figcaption>
+                <img src="./static/image/pipeline.png" alt="Overview of D(R,O) Grasp framework">
+                <figcaption style="font-style: normal; font-size: 0.95em;">Overview of $\mathcal{D(R,O)}$ Grasp: We first pretrain the robot encoder with the proposed configuration-invariant
+                  pretraining method. Then, we predict the $\mathcal{D(R,O)}$ representation between the robot and object point cloud. Finally, we
+                  extract joint values from the $\mathcal{D(R,O)}$ representation.</figcaption>
               </figure>
             </div>
           </div>
@@ -132,14 +144,28 @@
         </div>
 
         <div class="columns is-centered has-text-centered">
-
+          <!-- Model Viewer 1 for Barrett -->
+          <div class="column is-one-quarter" style="display: flex; flex-direction: column; align-items: center;">
+            <model-viewer
+              id="modelViewer1"
+              src="static/data/3dmodel/Barrett/contactdb+apple/0.glb"
+              alt="Barrett Grasp"
+              ar
+              camera-controls
+              auto-rotate
+              auto-rotate-delay="1000"
+              interaction-prompt-threshold="2000"
+              style="width: 200px; height: 200px; border: 3px solid #66c0ff; border-radius: 15px;">
+            </model-viewer>
+            <p style="font-size: 20px; font-weight: bold;">Barrett</p>
+          </div>
     
-          <!-- Model Viewer for Web2Grasp -->
+          <!-- Model Viewer 2 for Allegro -->
           <div class="column is-one-quarter" style="display: flex; flex-direction: column; align-items: center;">
             <model-viewer
               id="modelViewer2"
-              src="static/web2grasp_data/hammer/0.glb"
-              alt="Web2Grasp"
+              src="static/data/3dmodel/Allegro/contactdb+apple/0.glb"
+              alt="Allegro Grasp"
               ar
               camera-controls
               auto-rotate
@@ -150,7 +176,21 @@
             <p style="font-size: 20px; font-weight: bold;">Web2Grasp</p>
           </div>
     
-
+          <!-- Model Viewer 3 for ShadowHand -->
+          <div class="column is-one-quarter" style="display: flex; flex-direction: column; align-items: center;">
+            <model-viewer
+              id="modelViewer3"
+              src="static/data/3dmodel/ShadowHand/contactdb+apple/0.glb"
+              alt="ShadowHand Grasp"
+              ar
+              camera-controls
+              auto-rotate
+              auto-rotate-delay="1000"
+              interaction-prompt-threshold="2000"
+              style="width: 200px; height: 200px; border: 3px solid #66c0ff; border-radius: 15px;">
+            </model-viewer>
+            <p style="font-size: 20px; font-weight: bold;">ShadowHand</p>
+          </div>
     
           <!-- Controls for Object and Grasp ID -->
           <div class="column is-one-quarter">
@@ -158,15 +198,16 @@
             <div class="dropdown-container" style="text-align: center; margin-top: 10px; margin-bottom: 20px;">
               <label for="objectName" style="font-size: 20px; font-weight: bold;">Object Name</label>
               <select id="objectName" class="custom-select" style="width: 200px; margin-top: 10px;">
-                <option value="hammer" style="font-size: 14px;">hammer</option>
-                <option value="hand_soap" style="font-size: 14px;">hand_soap</option>
-                <option value="mug" style="font-size: 14px;">mug</option>
-                <option value="pen" style="font-size: 14px;">pen</option>
-                <option value="power_drill" style="font-size: 14px;">power_drill</option>
-                <option value="rope" style="font-size: 14px;">rope</option>
-                <option value="spray" style="font-size: 14px;">spray</option>
-                <option value="tong" style="font-size: 14px;">tong</option>
-                <option value="whisk" style="font-size: 14px;">whisk</option>
+                <option value="contactdb+apple" style="font-size: 14px;">contactdb+apple</option>
+                <option value="contactdb+camera" style="font-size: 14px;">contactdb+camera</option>
+                <option value="contactdb+cylinder_medium" style="font-size: 14px;">contactdb+cylinder_medium</option>
+                <option value="contactdb+rubber_duck" style="font-size: 14px;">contactdb+rubber_duck</option>
+                <option value="contactdb+door_knob" style="font-size: 14px;">contactdb+door_knob</option>
+                <option value="contactdb+water_bottle" style="font-size: 14px;">contactdb+water_bottle</option>
+                <option value="ycb+baseball" style="font-size: 14px;">ycb+baseball</option>
+                <option value="ycb+pear" style="font-size: 14px;">ycb+pear</option>
+                <option value="ycb+potted_meat_can" style="font-size: 14px;">ycb+potted_meat_can</option>
+                <option value="ycb+tomato_soup_can" style="font-size: 14px;">ycb+tomato_soup_can</option>
               </select>
             </div>
 
@@ -192,7 +233,7 @@
                 Grasp ID: 
                 <span id="graspIDLabel">0</span>
               </div>
-              <input type="range" id="graspID" name="graspID" min="0" max="5" value="0" style="width: 200px; height: 15px;">
+              <input type="range" id="graspID" name="graspID" min="0" max="9" value="0" style="width: 200px; height: 15px;">
             </div>
           </div>
         </div>
@@ -200,7 +241,9 @@
     </section>
 
     <script>
+      const modelViewer1 = document.getElementById('modelViewer1');
       const modelViewer2 = document.getElementById('modelViewer2');
+      const modelViewer3 = document.getElementById('modelViewer3');
       const objectNameSelect = document.getElementById('objectName');
       const graspIDSlider = document.getElementById('graspID');
       const graspIDLabel = document.getElementById('graspIDLabel');
@@ -213,7 +256,9 @@
 
         graspIDLabel.textContent = selectedGraspID;
 
-        modelViewer2.src = `static/web2grasp_data/${selectedObject}/${selectedGraspID}.glb`;
+        modelViewer1.src = `static/data/3dmodel/Barrett/${selectedObject}/${selectedGraspID}.glb`;
+        modelViewer2.src = `static/data/3dmodel/Allegro/${selectedObject}/${selectedGraspID}.glb`;
+        modelViewer3.src = `static/data/3dmodel/ShadowHand/${selectedObject}/${selectedGraspID}.glb`;
       }
       objectNameSelect.addEventListener('change', updateModel);
       graspIDSlider.addEventListener('input', updateModel);
